@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\ConcessionariaController;
+use App\Http\Controllers\LoginController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -14,6 +16,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+Route::post('login', [LoginController::class, 'login']);
+
+Route::controller(ConcessionariaController::class)->group(function() {
+    Route::get('/concessionarias', 'index');
+    Route::get('/concessionarias/{id}', 'show');
+    Route::post('/concessionarias', 'store');
+    Route::put('/concessionarias/{id}', 'update');
+    Route::delete('/concessionarias/{id}', 'delete');
 });
