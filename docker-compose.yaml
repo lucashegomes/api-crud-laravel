@@ -51,8 +51,7 @@ services:
     ports:
       - '8080:8080'
     volumes:
-      - ./:/app
-    command: 'npm run serve'
+      - ./:/var/www
 
 networks:
   network:
