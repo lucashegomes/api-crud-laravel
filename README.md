@@ -14,27 +14,27 @@ Atividades realizadas no projeto
 Para executar esta aplicação é necessário seguir os passos a seguir:
 
 - Instalar o [WSL](https://learn.microsoft.com/pt-br/windows/wsl/install) (windows apenas)
-- Instalação do [Docker]("https://docs.docker.com/engine/install)
+- Instalação do [Docker](https://docs.docker.com/engine/install)
 - Instalação do **docker-compose** (caso tenha instalado o Docker Desktop, esse pacote é nativo)
 - Clonar o projeto 
 ```
 git clone git@github.com:lucashegomes/api-crud-laravel.git
 ```
->**Note:** OBS: Para executar o git clone desta forma, será necessário configurar uma chave SSH e configurá-la na sua conta do Github
+>**OBS:** Para executar o git clone desta forma, será necessário configurar uma chave SSH e configurá-la na sua conta do Github
 
 - Entre na pasta do projeto clonado e execute **docker-compose build --no-cache**
 
 ## Próximos passos
 
 Execute os comandos sequencialmente:
-
-- docker-compose down --remove-orphans
-- docker-compose up -d
-- docker-compose exec php php artisan config:clear
-- docker-compose exec php php artisan cache:clear
-- docker-compose exec php php artisan migrate:fresh --seed
-- docker-compose exec php php artisan serve
-
+```
+docker-compose down --remove-orphans
+docker-compose up -d
+docker-compose exec php php artisan config:clear
+docker-compose exec php php artisan cache:clear
+docker-compose exec php php artisan migrate:fresh --seed
+docker-compose exec php php artisan serve
+```
 
 ## License
 
