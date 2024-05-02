@@ -43,14 +43,16 @@ services:
     networks:
       - network
 
-  npm:
-    image: node:16
-    container_name: npm
-    user: "1000:1000"
+  vue:
+    build:
+      context: .
+      dockerfile: ./docker/Dockerfile.node
+    container_name: vue
+    ports:
+      - '8080:8080'
     volumes:
-      - ./src:/var/www/
-    working_dir: /var/www/
-    entrypoint: ['npm']
+      - ./:/app
+    command: 'npm run serve'
 
 networks:
   network:
