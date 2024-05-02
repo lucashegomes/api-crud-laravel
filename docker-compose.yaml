@@ -1,0 +1,57 @@
+services:
+  php:
+    build:
+      context: .
+      dockerfile: ./docker/Dockerfile
+    container_name: php
+    restart: unless-stopped
+    tty: true
+    working_dir: /var/www
+    volumes:
+      - ./:/var/www
+      - ./storage:/var/www/storage
+    networks:
+      - network
+
+  database:
+    image: mysql:8.0.18
+    command: --default-authentication-plugin=mysql_native_password
+    container_name: database
+    restart: unless-stopped
+    tty: true
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_DATABASE: apicrud
+      MYSQL_ROOT_PASSWORD: root_password
+      MYSQL_PASSWORD: password
+      MYSQL_USER: user
+    networks:
+      - network
+
+  app:
+    image: nginx:alpine
+    container_name: app
+    depends_on: [php]
+    restart: unless-stopped
+    tty: true
+    ports:
+      - "8000:80"
+    volumes:
+      - ./:/var/www
+      - ./docker/nginx:/etc/nginx/conf.d
+    networks:
+      - network
+
+  npm:
+    image: node:16
+    container_name: npm
+    user: "1000:1000"
+    volumes:
+      - ./src:/var/www/
+    working_dir: /var/www/
+    entrypoint: ['npm']
+
+networks:
+  network:
+    driver: bridge
